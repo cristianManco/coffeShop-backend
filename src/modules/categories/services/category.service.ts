@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from '../entities/category.entity';
 import { ILike, Repository } from 'typeorm';
 import { CreateCategoryDto, UpdateCategoryDto } from '../dtos';
-import { ObjectResponse } from 'src/utils/interfaces/object-response.interface';
-import { res } from 'src/utils/res';
+import { ObjectResponse } from 'src/libs/utils/interfaces/object-response.interface';
+import { res } from 'src/libs/utils/res';
 
 @Injectable()
 export class CategoryService {

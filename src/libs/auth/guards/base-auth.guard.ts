@@ -6,9 +6,9 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { JwtPayload } from 'src/auth/types/jwtPayload.type';
-import { res } from 'src/utils/res';
 import { TokenService } from '../services/token.service';
+import { res } from 'src/libs/utils/res';
+import { JwtPayload } from '../types/jwtPayload.type';
 
 @Injectable()
 export class BaseAuthGuard implements CanActivate {

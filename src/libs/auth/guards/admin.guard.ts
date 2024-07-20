@@ -4,7 +4,7 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { BaseAuthGuard } from './base-auth.guard';
-import { res } from 'src/utils/res';
+import { res } from 'src/libs/utils/res';
 
 @Injectable()
 export class AdminGuard extends BaseAuthGuard {

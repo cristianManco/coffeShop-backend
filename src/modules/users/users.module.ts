@@ -3,8 +3,8 @@ import { UserService } from './services/user.service';
 import { UserController } from './controllers/user.controller';
 import { User } from './entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from 'src/auth/auth.module';
-import { TokenService } from 'src/auth/services/token.service';
+import { AuthModule } from 'src/libs/auth/auth.module';
+import { TokenService } from 'src/libs/auth/services/token.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), forwardRef(() => AuthModule)],

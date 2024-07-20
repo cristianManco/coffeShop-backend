@@ -23,8 +23,8 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { AuthGuard } from 'src/auth/guards/auth.guard';
-import { AdminGuard } from 'src/auth/guards/admin.guard';
+import { AdminGuard } from 'src/libs/auth/guards/admin.guard';
+import { AuthGuard } from 'src/libs/auth/guards/auth.guard';
 
 @ApiTags('Users')
 @Controller('user')

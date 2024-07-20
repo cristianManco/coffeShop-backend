@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from '../entities/product.entity';
 import { ILike, Repository } from 'typeorm';
 import { CreateProductDto, UpdateProductDto } from '../dtos';
-import { ObjectResponse } from 'src/utils/interfaces/object-response.interface';
-import { res } from 'src/utils/res';
 import { Category } from 'src/modules/categories/entities/category.entity';
+import { ObjectResponse } from 'src/libs/utils/interfaces/object-response.interface';
+import { res } from 'src/libs/utils/res';
 
 @Injectable()
 export class ProductService {

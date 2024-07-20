@@ -9,13 +9,13 @@ import { UserService } from 'src/modules/users/services/user.service';
 import { TokenService } from './token.service';
 import { HashService } from './hash.service';
 import { RegisterDto } from '../dtos/register-user.dto';
-import { ObjectResponse } from 'src/utils/interfaces/object-response.interface';
 import { User } from 'src/modules/users/entities/user.entity';
 import { Tokens } from '../types/toke.type';
-import { res } from 'src/utils/res';
 import { LoginDto } from '../dtos/login-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ObjectResponse } from 'src/libs/utils/interfaces/object-response.interface';
+import { res } from 'src/libs/utils/res';
 
 @Injectable()
 export class AuthService {

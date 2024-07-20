@@ -7,10 +7,10 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities/user.entity';
 import { ILike, Repository } from 'typeorm';
-import { ObjectResponse } from 'src/utils/interfaces/object-response.interface';
-import { res } from 'src/utils/res';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { UpdateUserDto } from '../dtos/update-user.dto';
+import { ObjectResponse } from 'src/libs/utils/interfaces/object-response.interface';
+import { res } from 'src/libs/utils/res';
 
 @Injectable()
 export class UserService {

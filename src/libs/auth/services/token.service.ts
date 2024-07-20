@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtPayload } from '../types/jwtPayload.type';
-import { res } from 'src/utils/res';
 import { JwtService } from '@nestjs/jwt';
 import { Tokens } from '../types/toke.type';
+import { res } from 'src/libs/utils/res';
 
 @Injectable()
 export class TokenService {
