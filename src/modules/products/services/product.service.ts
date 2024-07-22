@@ -19,12 +19,12 @@ export class ProductService {
   async create(product: CreateProductDto): Promise<ObjectResponse<Product>> {
     try {
       const category = await this.categoryRepository.findOne({
-        where: { id: product.category_id },
+        where: { id: product.id_category },
       });
 
       if (!category) {
         throw new NotFoundException(
-          res(false, `Category with ID ${product.category_id} not found`, null),
+          res(false, `Category with ID ${product.id_category} not found`, null),
         );
       }
 
@@ -119,15 +119,15 @@ export class ProductService {
         );
       }
 
-      if (product.category_id) {
+      if (product.id_category) {
         const category = await this.categoryRepository.findOne({
-          where: { id: product.category_id },
+          where: { id: product.id_category },
         });
         if (!category) {
           throw new NotFoundException(
             res(
               false,
-              `Category with ID ${product.category_id} not found`,
+              `Category with ID ${product.id_category} not found`,
               null,
             ),
           );

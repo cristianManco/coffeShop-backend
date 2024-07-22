@@ -1,14 +1,15 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsNumber, Min } from 'class-validator';
+import { IsInt, IsDecimal } from 'class-validator';
 
 export class CreateOrderDetailDto {
   @IsInt()
-  @Min(1)
-  @ApiProperty()
-  product_id: number;
+  id_order: number;
 
-  @IsNumber()
-  @Min(1)
-  @ApiProperty()
+  @IsInt()
+  id_product: number;
+
+  @IsInt()
   quantity: number;
+
+  @IsDecimal()
+  unit_price: number;
 }

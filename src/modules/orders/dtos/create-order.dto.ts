@@ -1,28 +1,25 @@
 import {
   IsArray,
+  IsEnum,
   IsInt,
   IsNotEmpty,
   IsOptional,
   ValidateNested,
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
 import { CreateOrderDetailDto } from './create-order-detail.dto';
-import { Transform, Type } from 'class-transformer';
+import { Type } from 'class-transformer';
 
 export class CreateOrderDto {
   @IsInt()
   @IsNotEmpty()
-  @ApiProperty()
-  user_id: number;
+  id_client: number;
 
-  @IsOptional()
-  @Transform(({ value }) => value.trim())
-  @ApiProperty()
-  status?: string;
+  @IsEnum(['delivered', 'shipped', 'confirmed', 'pending'])
+  status: string;
 
   @IsArray()
+  @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => CreateOrderDetailDto)
-  @ApiProperty()
   order_details: CreateOrderDetailDto[];
 }

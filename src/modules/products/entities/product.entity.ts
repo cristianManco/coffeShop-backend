@@ -1,5 +1,4 @@
 import { Category } from 'src/modules/categories/entities/category.entity';
-import { Order } from 'src/modules/orders/entities/order.entity';
 import {
   Column,
   CreateDateColumn,
@@ -16,18 +15,24 @@ export class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', length: 50 })
+  @Column()
+  multimedia_url: string;
+
+  @Column({ type: 'varchar', length: 100 })
   name: string;
+
+  @Column({ type: 'text' })
+  description: string;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   price: number;
 
+  @ManyToOne(() => Category, (category) => category.products)
+  @JoinColumn({ name: 'id_category' })
+  category: Category;
+
   @Column({ type: 'int' })
   stock: number;
-
-  @ManyToOne(() => Category, (category) => category.products)
-  @JoinColumn({ name: 'category_id' })
-  category: Category;
 
   @CreateDateColumn()
   createdAt: Date;

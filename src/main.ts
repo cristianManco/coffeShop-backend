@@ -8,10 +8,10 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
-    .setTitle('Prosys')
+    .setTitle('cafeteria')
     .setDescription('')
     .setVersion('1.0')
-    .addTag('Prosys')
+    .addTag('cafeteria')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);

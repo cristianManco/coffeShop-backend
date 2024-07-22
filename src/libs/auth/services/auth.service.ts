@@ -54,7 +54,7 @@ export class AuthService {
       throw new BadRequestException(res(false, 'failed to create user', null));
     }
 
-    return res(true, 'User successfully registered', newUser);
+    return await res(true, 'User successfully registered', newUser);
   }
 
   async login(loginDto: LoginDto): Promise<ObjectResponse<Tokens>> {
@@ -83,12 +83,10 @@ export class AuthService {
     const payload = {
       sub: user.id,
       email: user.email,
-      name: user.name,
-      telephone: user.telephone,
       role: user.role,
     };
 
-    return res(
+    return await res(
       true,
       'User successfully logged in',
       await this.tokenService.generateTokens(payload),
@@ -96,11 +94,11 @@ export class AuthService {
   }
 
   async logout(token: string): Promise<ObjectResponse<null>> {
-    if (this.tokenService.isTokenInvalidated(token)) {
+    if (await this.tokenService.isTokenInvalidated(token)) {
       throw new UnauthorizedException('Token has been invalidated');
     }
 
-    this.tokenService.invalidateToken(token);
-    return res(true, 'User successfully logged out', null);
+    await this.tokenService.invalidateToken(token);
+    return await res(true, 'User successfully logged out', null);
   }
 }

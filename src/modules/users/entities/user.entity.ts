@@ -17,14 +17,14 @@ export class User {
   @Column({ type: 'varchar', length: 50 })
   name: string;
 
-  @Column({ type: 'varchar', length: 50, unique: true })
+  @Column({ type: 'varchar', length: 250, unique: true })
   email: string;
 
   @Column({ type: 'varchar', length: 100 })
   password: string;
 
-  @Column({ type: 'varchar', length: 15 })
-  telephone: string;
+  @Column({ type: 'varchar', length: 20 })
+  phone: string;
 
   @Column({ type: 'enum', enum: ['admin', 'user'], default: 'user' })
   role?: string;

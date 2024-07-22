@@ -19,12 +19,15 @@ export class OrderDetail {
   @Column({ type: 'int' })
   quantity: number;
 
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  unit_price: number;
+
   @ManyToOne(() => Order, (order) => order.orderDetails)
-  @JoinColumn({ name: 'order_id' })
+  @JoinColumn({ name: 'id_order' })
   order: Order;
 
   @ManyToOne(() => Product)
-  @JoinColumn({ name: 'product_id' })
+  @JoinColumn({ name: 'id_product' })
   product: Product;
 
   @CreateDateColumn()

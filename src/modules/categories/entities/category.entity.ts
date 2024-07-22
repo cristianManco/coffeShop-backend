@@ -17,7 +17,7 @@ export class Category {
   @Column({ type: 'varchar', length: 50 })
   name: string;
 
-  @Column({ type: 'varchar', length: 150 })
+  @Column({ type: 'text' })
   description: string;
 
   @OneToMany(() => Product, (product) => product.category)

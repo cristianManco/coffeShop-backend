@@ -12,7 +12,6 @@ export class LoginDto {
   @ApiProperty()
   @IsEmail()
   @IsNotEmpty()
-  @ApiProperty()
   @Transform(({ value }) => value.toLowerCase())
   email: string;
 
@@ -22,7 +21,6 @@ export class LoginDto {
   @MaxLength(50, {
     message: 'The password must have a maximum of 100 characters',
   })
-  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   password: string;

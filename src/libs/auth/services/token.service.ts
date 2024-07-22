@@ -18,7 +18,7 @@ export class TokenService {
       );
     }
     try {
-      return this.jwtService.signAsync(payload, {
+      return await this.jwtService.signAsync(payload, {
         secret: secretKey,
         ...options,
       });
@@ -38,14 +38,14 @@ export class TokenService {
       jwtPayload,
       accessTokenOptions,
     );
-    return { access_token: accessToken };
+    return await { access_token: accessToken };
   }
 
-  invalidateToken(token: string): void {
-    this.invalidatedTokens.add(token);
+  async invalidateToken(token: string): Promise<void> {
+    await this.invalidatedTokens.add(token);
   }
 
-  isTokenInvalidated(token: string): boolean {
-    return this.invalidatedTokens.has(token);
+  async isTokenInvalidated(token: string): Promise<boolean> {
+    return await this.invalidatedTokens.has(token);
   }
 }

@@ -17,7 +17,7 @@ export class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   order_date: Date;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
@@ -28,10 +28,10 @@ export class Order {
     enum: ['delivered', 'shipped', 'confirmed', 'pending'],
     default: 'pending',
   })
-  status?: string;
+  status: string;
 
   @ManyToOne(() => User, (user) => user.orders)
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'id_client' })
   user: User;
 
   @OneToMany(() => OrderDetail, (orderDetail) => orderDetail.order, {

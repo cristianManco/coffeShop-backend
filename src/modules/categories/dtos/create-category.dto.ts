@@ -1,19 +1,14 @@
+import { IsString, Length } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
-import { IsNotEmpty, IsString, Length } from 'class-validator';
 
 export class CreateCategoryDto {
+  @ApiProperty({ description: 'Name of the category' })
   @IsString()
   @Length(1, 50)
-  @IsNotEmpty()
-  @Transform(({ value }) => value.trim())
-  @ApiProperty()
   name: string;
 
+  @ApiProperty({ description: 'Description of the category' })
   @IsString()
   @Length(1, 150)
-  @IsNotEmpty()
-  @Transform(({ value }) => value.trim())
-  @ApiProperty()
   description: string;
 }

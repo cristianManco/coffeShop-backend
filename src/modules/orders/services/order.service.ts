@@ -30,14 +30,14 @@ export class OrderService {
     createOrderDto: CreateOrderDto,
   ): Promise<ObjectResponse<Order>> {
     try {
-      const { user_id, order_details } = createOrderDto;
+      const { id_client, order_details } = createOrderDto;
       const user = await this.userRepository.findOne({
-        where: { id: user_id },
+        where: { id: id_client },
       });
 
       if (!user) {
         throw new NotFoundException(
-          res(false, `User with id ${user_id} not found`, null),
+          res(false, `User with id ${id_client} not found`, null),
         );
       }
 
@@ -49,12 +49,12 @@ export class OrderService {
       const orderDetails: OrderDetail[] = [];
       for (const detail of order_details) {
         const product = await this.productRepository.findOne({
-          where: { id: detail.product_id },
+          where: { id: detail.id_product },
         });
 
         if (!product) {
           throw new NotFoundException(
-            res(false, `Product with id ${detail.product_id} not found`, null),
+            res(false, `Product with id ${detail.id_product} not found`, null),
           );
         }
 
@@ -96,7 +96,7 @@ export class OrderService {
       const responseOrder = {
         ...createdOrder,
         orderDetails: createdOrder.orderDetails.map((detail) => {
-          const { order, ...detailWithoutOrder } = detail;
+          const { ...detailWithoutOrder } = detail;
           return detailWithoutOrder;
         }),
       };
@@ -138,15 +138,15 @@ export class OrderService {
         );
       }
 
-      if (updateOrderDto.user_id) {
+      if (updateOrderDto.id_client) {
         const userExists = await this.userRepository.findOne({
-          where: { id: updateOrderDto.user_id },
+          where: { id: updateOrderDto.id_client },
         });
         if (!userExists) {
           throw new NotFoundException(
             res(
               false,
-              `User with id ${updateOrderDto.user_id} not found`,
+              `User with id ${updateOrderDto.id_client} not found`,
               null,
             ),
           );
@@ -159,14 +159,14 @@ export class OrderService {
 
         for (const detail of updateOrderDto.order_details) {
           const product = await this.productRepository.findOne({
-            where: { id: detail.product_id },
+            where: { id: detail.id_product },
           });
 
           if (!product) {
             throw new NotFoundException(
               res(
                 false,
-                `Product with id ${detail.product_id} not found`,
+                `Product with id ${detail.id_product} not found`,
                 null,
               ),
             );
