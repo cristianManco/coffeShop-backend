@@ -17,7 +17,7 @@ export class CategoryService {
     category: CreateCategoryDto,
   ): Promise<ObjectResponse<Category>> {
     try {
-      const newCategory = this.categoryRepository.create(category);
+      const newCategory = await this.categoryRepository.create(category);
       const categorySaved = await this.categoryRepository.save(newCategory);
       return res(true, 'Category created successfully', categorySaved);
     } catch (error) {
@@ -34,7 +34,7 @@ export class CategoryService {
         skip: (page - 1) * limit,
         take: limit,
       });
-      return res(true, 'Categories found', { categories, total });
+      return await res(true, 'Categories found', { categories, total });
     } catch (error) {
       throw error;
     }
@@ -56,7 +56,7 @@ export class CategoryService {
         return res(false, 'Category not found', category);
       }
 
-      return res(true, 'Category found', { category, total });
+      return await res(true, 'Category found', { category, total });
     } catch (error) {
       throw error;
     }
@@ -81,7 +81,7 @@ export class CategoryService {
       const categoryUpdated = await this.categoryRepository.findOne({
         where: { id },
       });
-      return res(true, 'Category updated successfully', categoryUpdated);
+      return await res(true, 'Category updated successfully', categoryUpdated);
     } catch (error) {
       throw error;
     }
@@ -100,7 +100,7 @@ export class CategoryService {
       }
 
       await this.categoryRepository.softDelete(id);
-      return res(true, 'Category deleted successfully', categoryExists);
+      return await res(true, 'Category deleted successfully', categoryExists);
     } catch (error) {
       throw error;
     }

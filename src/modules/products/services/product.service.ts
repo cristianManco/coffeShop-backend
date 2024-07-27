@@ -28,7 +28,7 @@ export class ProductService {
         );
       }
 
-      const newProduct = this.productRepository.create(product);
+      const newProduct = await this.productRepository.create(product);
       newProduct.category = category;
       const productSaved = await this.productRepository.save(newProduct);
 
@@ -37,7 +37,11 @@ export class ProductService {
         relations: ['category'],
       });
 
-      return res(true, 'Product created successfully', productWithRelations);
+      return await res(
+        true,
+        'Product created successfully',
+        productWithRelations,
+      );
     } catch (error) {
       throw error;
     }
@@ -53,7 +57,7 @@ export class ProductService {
         take: limit,
         relations: ['category'],
       });
-      return res(true, 'Products found', { products, total });
+      return await res(true, 'Products found', { products, total });
     } catch (error) {
       throw error;
     }
@@ -72,7 +76,7 @@ export class ProductService {
         );
       }
 
-      return res(true, 'Product found by id', product);
+      return await res(true, 'Product found by id', product);
     } catch (error) {
       throw error;
     }
@@ -97,7 +101,7 @@ export class ProductService {
         );
       }
 
-      return res(true, 'Products found', { products, total });
+      return await res(true, 'Products found', { products, total });
     } catch (error) {
       throw error;
     }
@@ -141,7 +145,7 @@ export class ProductService {
         where: { id },
         relations: ['category'],
       });
-      return res(true, 'Product updated successfully', productUpdated);
+      return await res(true, 'Product updated successfully', productUpdated);
     } catch (error) {
       throw error;
     }
@@ -161,7 +165,7 @@ export class ProductService {
       }
 
       await this.productRepository.softDelete(id);
-      return res(true, 'Product deleted successfully', productExists);
+      return await res(true, 'Product deleted successfully', productExists);
     } catch (error) {
       throw error;
     }

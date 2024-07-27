@@ -44,7 +44,7 @@ export class AuthService {
       email: registerDto.email,
       password: hashedPassword,
       name: registerDto.name,
-      telephone: registerDto.telephone,
+      phone: registerDto.phone,
       role: registerDto.role,
     };
 

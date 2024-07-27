@@ -39,7 +39,7 @@ export class ProductController {
   @ApiOperation({ summary: 'Create a product' })
   @Post('create')
   async create(@Body() product: CreateProductDto) {
-    return this.productService.create(product);
+    return await this.productService.create(product);
   }
 
   @ApiOkResponse({ description: 'Success' })
@@ -50,7 +50,7 @@ export class ProductController {
   @ApiOperation({ summary: 'Find all products' })
   @Get('all')
   async findAll(@Query('page') page: number, @Query('limit') limit: number) {
-    return this.productService.findAll(page, limit);
+    return await this.productService.findAll(page, limit);
   }
 
   @ApiOkResponse({ description: 'Success' })
@@ -61,7 +61,7 @@ export class ProductController {
   @ApiOperation({ summary: 'Find product by id' })
   @Get(':id')
   async getProductById(@Param('id') id: number) {
-    return this.productService.getProductById(id);
+    return await this.productService.getProductById(id);
   }
 
   @ApiOkResponse({ description: 'Success' })
@@ -75,7 +75,7 @@ export class ProductController {
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
   ) {
-    return this.productService.findProductsByName(name, page, limit);
+    return await this.productService.findProductsByName(name, page, limit);
   }
 
   @UseGuards(AdminGuard)
@@ -88,7 +88,7 @@ export class ProductController {
   @ApiOperation({ summary: 'Update product' })
   @Put('update/:id')
   async update(@Param('id') id: number, @Body() product: UpdateProductDto) {
-    return this.productService.updateProduct(id, product);
+    return await this.productService.updateProduct(id, product);
   }
 
   @UseGuards(AdminGuard)
@@ -100,6 +100,6 @@ export class ProductController {
   @ApiOperation({ summary: 'Delete product' })
   @Delete('delete/:id')
   async delete(@Param('id') id: number) {
-    return this.productService.deleteProduct(id);
+    return await this.productService.deleteProduct(id);
   }
 }

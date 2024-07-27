@@ -16,7 +16,7 @@ export class AuthController {
   @ApiOperation({ summary: 'User login' })
   @Post('login')
   async login(@Body() loginDto: LoginDto): Promise<ObjectResponse<Tokens>> {
-    return this.authService.login(loginDto);
+    return await this.authService.login(loginDto);
   }
 
   @ApiOperation({ summary: 'User registration' })
@@ -24,7 +24,7 @@ export class AuthController {
   async register(
     @Body() registerDto: RegisterDto,
   ): Promise<ObjectResponse<User>> {
-    return this.authService.register(registerDto);
+    return await this.authService.register(registerDto);
   }
 
   @UseGuards(AuthGuard)
@@ -33,7 +33,7 @@ export class AuthController {
   @ApiOperation({ summary: 'User logout' })
   @Post('logout')
   async logout(@Req() req): Promise<ObjectResponse<null>> {
-    const token = req.headers.authorization.split(' ')[1];
-    return this.authService.logout(token);
+    const token = await req.headers.authorization.split(' ')[1];
+    return await this.authService.logout(token);
   }
 }

@@ -39,7 +39,7 @@ export class OrderController {
   @ApiOperation({ summary: 'Create a order' })
   @Post('create')
   async createOrder(@Body() createOrderDto: CreateOrderDto) {
-    return this.orderService.createOrder(createOrderDto);
+    return await this.orderService.createOrder(createOrderDto);
   }
 
   @ApiOkResponse({ description: 'Success' })
@@ -53,7 +53,7 @@ export class OrderController {
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
   ) {
-    return this.orderService.findAllOrders(page, limit);
+    return await this.orderService.findAllOrders(page, limit);
   }
 
   @ApiOkResponse({ description: 'Success' })
@@ -67,7 +67,7 @@ export class OrderController {
     @Param('id') id: number,
     @Body() updateOrderDto: UpdateOrderDto,
   ) {
-    return this.orderService.updateOrder(id, updateOrderDto);
+    return await this.orderService.updateOrder(id, updateOrderDto);
   }
 
   @UseGuards(AuthGuard)
@@ -79,6 +79,6 @@ export class OrderController {
   @ApiOperation({ summary: 'Delete order' })
   @Delete('delete/:id')
   async deleteOrder(@Param('id') id: number) {
-    return this.orderService.deleteOrder(id);
+    return await this.orderService.deleteOrder(id);
   }
 }
