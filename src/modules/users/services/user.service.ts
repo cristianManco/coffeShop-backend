@@ -42,7 +42,7 @@ export class UserService {
         );
       }
       const userSaved = await this.userRepository.save(user);
-      return res(true, 'User created', userSaved);
+      return await res(true, 'User created', userSaved);
     } catch (error) {
       throw error;
     }
@@ -59,7 +59,7 @@ export class UserService {
         );
       }
 
-      return res(true, 'User found', user);
+      return await res(true, 'User found', user);
     } catch (error) {
       throw error;
     }
@@ -82,7 +82,10 @@ export class UserService {
         );
       }
 
-      return res(true, `Users with name "${name}" found`, { users, total });
+      return await res(true, `Users with name "${name}" found`, {
+        users,
+        total,
+      });
     } catch (error) {
       throw error;
     }
@@ -97,7 +100,7 @@ export class UserService {
         skip: (page - 1) * limit,
         take: limit,
       });
-      return res(true, 'Users found', { users, total });
+      return await res(true, 'Users found', { users, total });
     } catch (error) {
       throw error;
     }
@@ -129,7 +132,7 @@ export class UserService {
       }
 
       await this.userRepository.update(id, user);
-      return res(true, 'User updated', user);
+      return await res(true, 'User updated', user);
     } catch (error) {
       throw error;
     }
@@ -147,7 +150,7 @@ export class UserService {
       }
 
       const userDeleted = await this.userRepository.softDelete(id);
-      return res(true, 'User deleted', userDeleted);
+      return await res(true, 'User deleted', userDeleted);
     } catch (error) {
       throw error;
     }

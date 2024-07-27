@@ -38,7 +38,7 @@ export class RegisterDto {
   @Length(1, 15)
   @Transform(({ value }) => value.trim())
   @ApiProperty()
-  telephone: string;
+  phone: string;
 
   @IsOptional()
   @Transform(({ value }) => value.trim())

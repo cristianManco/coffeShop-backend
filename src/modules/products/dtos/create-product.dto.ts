@@ -1,11 +1,4 @@
-import {
-  IsString,
-  IsDecimal,
-  IsInt,
-  Length,
-  Min,
-  IsNotEmpty,
-} from 'class-validator';
+import { IsString, IsInt, Length, Min, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateProductDto {
@@ -24,7 +17,8 @@ export class CreateProductDto {
   description: string;
 
   @ApiProperty({ description: 'Price of the product' })
-  @IsDecimal()
+  @IsInt()
+  @IsNotEmpty()
   price: number;
 
   @ApiProperty({ description: 'Category ID of the product' })

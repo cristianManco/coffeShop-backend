@@ -41,7 +41,7 @@ export class OrderService {
         );
       }
 
-      const order = new Order();
+      const order = await new Order();
       order.order_date = new Date();
       order.user = user;
 
@@ -64,12 +64,12 @@ export class OrderService {
           );
         }
 
-        const orderDetail = new OrderDetail();
+        const orderDetail = await new OrderDetail();
         orderDetail.product = product;
         orderDetail.quantity = detail.quantity;
         orderDetail.order = order;
 
-        orderDetails.push(orderDetail);
+        await orderDetails.push(orderDetail);
 
         totalAmount += product.price * detail.quantity;
       }
@@ -89,7 +89,7 @@ export class OrderService {
           const savedOrder = await transactionalEntityManager.save(order);
           await transactionalEntityManager.save(orderDetails);
 
-          return savedOrder;
+          return await savedOrder;
         },
       );
 
@@ -101,7 +101,7 @@ export class OrderService {
         }),
       };
 
-      return res(true, 'Order created successfully', responseOrder);
+      return await res(true, 'Order created successfully', responseOrder);
     } catch (error) {
       throw error;
     }
@@ -118,7 +118,10 @@ export class OrderService {
         relations: ['user', 'orderDetails', 'orderDetails.product'],
       });
 
-      return res(true, 'Orders retrieved successfully', { orders, total });
+      return await res(true, 'Orders retrieved successfully', {
+        orders,
+        total,
+      });
     } catch (error) {}
   }
 
@@ -193,11 +196,11 @@ export class OrderService {
           }
           orderDetail.quantity = detail.quantity;
 
-          orderDetailsToUpdate.push(orderDetail);
+          await orderDetailsToUpdate.push(orderDetail);
         }
 
         // Remove old order details
-        const oldOrderDetails = orderToUpdate.orderDetails.filter(
+        const oldOrderDetails = await orderToUpdate.orderDetails.filter(
           (od) => !orderDetailsToUpdate.includes(od),
         );
         await this.orderDetailRepository.remove(oldOrderDetails);
@@ -229,7 +232,7 @@ export class OrderService {
         })),
       };
 
-      return res(true, 'Order updated successfully', simpleOrder);
+      return await res(true, 'Order updated successfully', simpleOrder);
     } catch (error) {
       throw error;
     }
@@ -258,7 +261,7 @@ export class OrderService {
       }
 
       await this.orderRepository.softDelete(id);
-      return res(true, 'Order deleted successfully', orderToDelete);
+      return await res(true, 'Order deleted successfully', orderToDelete);
     } catch (error) {
       throw error;
     }

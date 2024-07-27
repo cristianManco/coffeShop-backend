@@ -39,7 +39,7 @@ export class UserController {
   @ApiOperation({ summary: 'Create a user' })
   @Post('create')
   async createUser(@Body() user: CreateUserDto) {
-    return this.userService.createUser(user);
+    return await this.userService.createUser(user);
   }
 
   @UseGuards(AdminGuard)
@@ -51,7 +51,7 @@ export class UserController {
   @ApiOperation({ summary: 'Find user by email' })
   @Get('find/email/:email')
   async findUserByEmail(@Param('email') email: string) {
-    return this.userService.findUserByEmail(email);
+    return await this.userService.findUserByEmail(email);
   }
 
   @UseGuards(AdminGuard)
@@ -67,7 +67,7 @@ export class UserController {
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
   ) {
-    return this.userService.findUsersByName(name, page, limit);
+    return await this.userService.findUsersByName(name, page, limit);
   }
 
   @UseGuards(AdminGuard)
@@ -83,7 +83,7 @@ export class UserController {
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
   ) {
-    return this.userService.findAllUsers(page, limit);
+    return await this.userService.findAllUsers(page, limit);
   }
 
   @UseGuards(AuthGuard)
@@ -96,7 +96,7 @@ export class UserController {
   @ApiOperation({ summary: 'Update user' })
   @Put('update/:id')
   async updatedUser(@Param('id') id: number, @Body() user: UpdateUserDto) {
-    return this.userService.updatedUser(id, user);
+    return await this.userService.updatedUser(id, user);
   }
 
   @UseGuards(AuthGuard)
@@ -108,6 +108,6 @@ export class UserController {
   @ApiOperation({ summary: 'Delete user' })
   @Delete('delete/:id')
   async deleteUser(@Param('id') id: number) {
-    return this.userService.deleteUser(id);
+    return await this.userService.deleteUser(id);
   }
 }

@@ -18,8 +18,10 @@ export class BaseAuthGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request = context.switchToHttp().getRequest();
-    const token = this.extractTokenFromHeader(request.headers.authorization);
+    const request = await context.switchToHttp().getRequest();
+    const token = await this.extractTokenFromHeader(
+      request.headers.authorization,
+    );
 
     if (!token) {
       throw new UnauthorizedException(
@@ -27,19 +29,22 @@ export class BaseAuthGuard implements CanActivate {
       );
     }
 
-    if (this.tokenService.isTokenInvalidated(token)) {
+    if (!this.tokenService.isTokenInvalidated(token)) {
       throw new UnauthorizedException(
         res(false, 'Token has been invalidated', null),
       );
     }
 
     try {
-      const decodedToken = this.jwtService.verify<JwtPayload>(token, {
-        secret: process.env.JWT_SECRET,
-      });
+      const decodedToken = await this.jwtService.verifyAsync<JwtPayload>(
+        token,
+        {
+          secret: process.env.JWT_SECRET,
+        },
+      );
       request.user = decodedToken;
 
-      return this.validateRole(decodedToken, context);
+      return await this.validateRole(await decodedToken, context);
     } catch (error) {
       if (error instanceof ForbiddenException) {
         throw error;
