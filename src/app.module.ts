@@ -22,11 +22,9 @@ import { AuthModule } from './libs/auth/auth.module';
       password: dbConfig().database.password,
       database: dbConfig().database.db,
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
       extra: {
-        ssl: {
-          rejectUnauthorized: false,
-        },
+        ssl: false,
       },
     }),
     CategoriesModule,
